@@ -9,3 +9,12 @@
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export EDITOR=vim
+export GIT_EDITOR=$EDITOR
+export GEM_HOME="$HOME/.gem"
+export PATH="node_modules/.bin:$PATH:$HOME/.gem/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/Android/Sdk/platform-tools"
+export GOPATH="$HOME/go"
+
+[ -s "$HOME/.myenv" ] && source "$HOME/.myenv"
+

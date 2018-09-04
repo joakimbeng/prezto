@@ -11,3 +11,23 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+[ -s "$HOME/.bin/tmuxinator.zsh" ] && source ~/.bin/tmuxinator.zsh
+
+alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
+
+function dreload () {
+  docker-compose build --force $1 \
+  && docker-compose stop $1 \
+  && docker-compose rm -f $1 \
+  && docker-compose up -d $1
+}
+
+function dhick () {
+  docker exec -it $(docker ps | grep "$@""[: ]" | awk '{print $1}') sh -c  "ps | grep 'node .*hickup ' | grep -v grep | awk '{print \$1}' | xargs kill -s SIGHUP"
+}
+
+function dlog () {
+  docker logs ${@:2} $(docker ps | grep "$1""[: ]" | awk '{print $1}')
+}
+
