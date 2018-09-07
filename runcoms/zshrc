@@ -31,3 +31,14 @@ function dlog () {
   docker logs ${@:2} $(docker ps | grep "$1""[: ]" | awk '{print $1}')
 }
 
+if type lt | grep -Fq alias; then
+	unalias lt
+fi
+if ! type compose | grep -Fq alias; then
+  alias compose="nocorrect compose"
+fi
+if ! type init | grep -Fq alias; then
+  alias init="nocorrect init"
+fi
+
+
