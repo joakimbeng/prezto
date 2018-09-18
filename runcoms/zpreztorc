@@ -37,10 +37,11 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'docker' \
   'node' \
-  'autosuggestions' \
+  'homebrew' \
   'completion' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'autosuggestions' \
   'prompt'
 
 #

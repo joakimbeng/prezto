@@ -14,7 +14,11 @@ fi
 
 [ -s "$HOME/.bin/tmuxinator.zsh" ] && source ~/.bin/tmuxinator.zsh
 
+command -v direnv 2>&1 > /dev/null && eval "$(direnv hook zsh)"
+
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
+alias zsource="source $HOME/.zshrc"
+alias ...="cd ../.."
 
 function dreload () {
   docker-compose build --force $1 \
@@ -34,11 +38,15 @@ function dlog () {
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
-if ! type compose | grep -Fq alias; then
-  alias compose="nocorrect compose"
-fi
-if ! type init | grep -Fq alias; then
-  alias init="nocorrect init"
-fi
+nocorrects=('compose' 'init' 'aws' 'json')
+
+for cmd in $nocorrects; do
+  if ! type $cmd | grep -Fq alias; then
+    alias $cmd="nocorrect $cmd"
+  fi
+done
 
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
