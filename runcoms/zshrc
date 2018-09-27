@@ -12,9 +12,13 @@ fi
 
 # Customize to your needs...
 
-[ -s "$HOME/.bin/tmuxinator.zsh" ] && source ~/.bin/tmuxinator.zsh
+if [ -s "$HOME/.bin/tmuxinator.zsh" ]; then
+  source ~/.bin/tmuxinator.zsh
+fi
 
-command -v direnv 2>&1 > /dev/null && eval "$(direnv hook zsh)"
+if command -v direnv 2>&1 > /dev/null; then
+  eval "$(direnv hook zsh)"
+fi
 
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
 alias zsource="source $HOME/.zshrc"
@@ -35,6 +39,10 @@ function dlog () {
   docker logs ${@:2} $(docker ps | grep "$1""[: ]" | awk '{print $1}')
 }
 
+function git-fix-author () {
+	git rebase -i $1 -x "git commit --amend --author '$(git config user.name) <$(git config user.email)>' -CHEAD"
+}
+
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
@@ -48,5 +56,6 @@ done
 
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
+
