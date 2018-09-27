@@ -38,7 +38,7 @@ function dlog () {
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
-nocorrects=('compose' 'init' 'aws' 'json')
+nocorrects=('compose' 'init' 'aws' 'json' 'jest')
 
 for cmd in $nocorrects; do
   if ! type $cmd | grep -Fq alias; then
