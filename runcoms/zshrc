@@ -23,6 +23,17 @@ fi
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
 alias zsource="source $HOME/.zshrc"
 alias ...="cd ../.."
+alias gcom="git checkout master"
+alias grom="git rebase origin/master"
+alias griom="git rebase --interactive origin/master"
+alias gfrom="git fetch && git rebase origin/master"
+alias gfriom="git fetch && git rebase --interactive origin/master"
+alias gfco="git fetch && git checkout"
+alias gu="git pull"
+alias gur="git pull --rebase"
+alias gU="git reset --hard @{upstream}"
+alias gfU="git fetch && git reset --hard @{upstream}"
+alias hush="grep --line-buffered -v"
 
 function dreload () {
   docker-compose build --force $1 \
