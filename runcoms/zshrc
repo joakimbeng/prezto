@@ -23,6 +23,7 @@ fi
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
 alias zsource="source $HOME/.zshrc"
 alias ...="cd ../.."
+alias ....="cd ../../.."
 alias gcom="git checkout master"
 alias grom="git rebase origin/master"
 alias griom="git rebase --interactive origin/master"
