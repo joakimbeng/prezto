@@ -22,6 +22,7 @@ fi
 
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
 alias zsource="source $HOME/.zshrc"
+alias zvim="vim $HOME/.zshrc"
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias gcom="git checkout master"
@@ -37,7 +38,7 @@ alias gfU="git fetch && git reset --hard @{upstream}"
 alias hush="grep --line-buffered -v"
 
 function dreload () {
-  docker-compose build --force $1 \
+  docker-compose build --force --no-cache $1 \
   && docker-compose stop $1 \
   && docker-compose rm -f $1 \
   && docker-compose up -d $1
@@ -58,7 +59,7 @@ function git-fix-author () {
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
-nocorrects=('compose' 'init' 'aws' 'json' 'jest')
+nocorrects=('compose' 'init' 'aws' 'json' 'jest' 'yarn')
 
 for cmd in $nocorrects; do
   if ! type $cmd | grep -Fq alias; then
