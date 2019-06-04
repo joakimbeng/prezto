@@ -13,9 +13,10 @@ fi
 setopt no_global_rcs
 
 export EDITOR=vim
+export VISUAL=vim
 export GIT_EDITOR=$EDITOR
 export GEM_HOME="$HOME/.gem"
-export PATH="node_modules/.bin:$HOME/.gem/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/Android/Sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="node_modules/.bin:$HOME/.gem/bin:$HOME/go/bin:/snap/bin:/usr/local/go/bin:$HOME/Android/Sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export GOPATH="$HOME/go"
 
 [ -s "$HOME/.myenv" ] && source "$HOME/.myenv"
