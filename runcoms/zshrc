@@ -59,7 +59,7 @@ function git-fix-author () {
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
-nocorrects=('compose' 'init' 'aws' 'json' 'jest' 'yarn')
+nocorrects=('compose' 'init' 'aws' 'json' 'jest' 'yarn' 'node')
 
 for cmd in $nocorrects; do
   if ! type $cmd | grep -Fq alias; then
