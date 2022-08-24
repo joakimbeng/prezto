@@ -20,17 +20,30 @@ if command -v direnv 2>&1 > /dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
+function gmain () {
+  git show-ref --quiet refs/remotes/origin/master && echo "master" || echo "main"
+}
+
+function gcom () {
+  git checkout `gmain`
+}
+
+function grom () {
+  gr origin/`gmain`
+}
+
+function griom () {
+  gr --interactive origin/`gmain`
+}
+
 alias rethinkdb='docker run --rm -it -v "`pwd`:/data" --net host rethinkdb'
 alias zsource="source $HOME/.zshrc"
 alias zvim="vim $HOME/.zshrc"
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias gcom="git checkout master"
-alias gfcom="git fetch && git checkout master"
-alias grom="git rebase origin/master"
-alias griom="git rebase --interactive origin/master"
-alias gfrom="git fetch && git rebase origin/master"
-alias gfriom="git fetch && git rebase --interactive origin/master"
+alias gfcom="gf && gcom"
+alias gfrom="gf && grom"
+alias gfriom="gf && griom"
 alias gfco="git fetch && git checkout"
 alias gu="git pull"
 alias gur="git pull --rebase"
@@ -38,6 +51,9 @@ alias gph="git push -u origin HEAD"
 alias gU="git reset --hard @{upstream}"
 alias gfU="git fetch && git reset --hard @{upstream}"
 alias hush="grep --line-buffered -v"
+alias visdom="cd ~/dev/@visdom/flowfront-main"
+alias kurr="cd ~/dev/@aboviq/kurr"
+alias headcount="cd ~/dev/@visdom/hcfront"
 
 function dreload () {
   docker-compose build --force --no-cache $1 \
@@ -61,7 +77,7 @@ function git-fix-author () {
 if type lt | grep -Fq alias; then
 	unalias lt
 fi
-nocorrects=('compose' 'init' 'aws' 'json' 'jest' 'yarn' 'node' 'code')
+nocorrects=('compose' 'init' 'aws' 'json' 'jest' 'yarn' 'node' 'code' 'tsc' 'esbuild')
 
 for cmd in $nocorrects; do
   if ! type $cmd | grep -Fq alias; then
@@ -75,6 +91,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
 
 autoload -U add-zsh-hook
+
 load-nvmrc() {
   local node_version="$(nvm version)"
   local nvmrc_path="$(nvm_find_nvmrc)"
@@ -92,9 +109,24 @@ load-nvmrc() {
     nvm use default
   fi
 }
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+
+if command -v nvm 2>&1 > /dev/null; then
+  add-zsh-hook chpwd load-nvmrc
+  load-nvmrc
+fi
 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# Scaleway CLI autocomplete initialization.
+if command -v scw 2>&1 > /dev/null; then
+  eval "$(scw autocomplete script shell=zsh)"
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/joakim/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/joakim/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/joakim/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/joakim/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
