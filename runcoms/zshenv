@@ -22,4 +22,4 @@ export GOPATH="$HOME/go"
 
 [ -s "$HOME/.myenv" ] && source "$HOME/.myenv"
 
-. "$HOME/.cargo/env"
+[ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
