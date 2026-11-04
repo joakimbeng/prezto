@@ -23,3 +23,8 @@ export GOPATH="$HOME/go"
 [ -s "$HOME/.myenv" ] && source "$HOME/.myenv"
 
 [ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+export IBM_TELEMETRY_DISABLED='true'
+export OLLAMA_KEEP_ALIVE=30m
+export OLLAMA_MAX_LOADED_MODELS=2
+
